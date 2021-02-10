@@ -20,14 +20,13 @@ export const EventList = (props) => {
                         <div>{event.description}</div>
                         <div>
                             {
-                                new Date(date).toLocaleDateString("en-US",
+                                new Date(event.scheduled_time).toLocaleDateString("en-US",
                                 {
                                     weekday: 'long',
                                     year: 'numeric',
                                     month: 'long',
                                     day: 'numeric'
                                 })
-                                @ {event.time}
                             }
                         </div>
                     </section>
