@@ -13,7 +13,7 @@ export const ApplicationViews = (props) => {
             lineHeight: "1.75rem"
         }}> 
             <GameProvider>
-                <Route exact path="/">
+                <Route exact path="/games">
                     <GameList {...props}/>
                 </Route>
             </GameProvider>

@@ -54,7 +54,7 @@ export const GameForm = () => {
             <fieldset>
                 <div className="form-group">
                     <label htmlFor="numberOfPlayers">Number of Players: </label>
-                    <input type="integer" name="numberOfPlayers" required autoFocus className="form-control"
+                    <input type="number" name="numberOfPlayers" required autoFocus className="form-control"
                         value={currentGame.numberOfPlayers}
                         onChange={changeGameState}
                     />
@@ -84,10 +84,21 @@ export const GameForm = () => {
             <fieldset>
                 <div className="form-group">
                     <label htmlFor="gameTypeId">Game Type: </label>
-                    <input type="integer" name="gameTypeId" required autoFocus className="form-control"
+                    {/* <input type="integer" name="gameTypeId" required autoFocus className="form-control"
                         value={currentGame.gameTypeId}
                         onChange={changeGameState}
-                    />
+                    /> */}
+                    <select 
+                        name="gameTypeId"  
+                        className="form-control" 
+                        onChange={changeGameState}>
+                            <option value="">Select...</option>
+                            {gameTypes.map((gameType) => (
+                                <option key={gameType.id} value={gameType.id}>
+                                    {gameType.id}
+                                </option>
+                            ))}
+                    </select>
                 </div>
             </fieldset>
 
