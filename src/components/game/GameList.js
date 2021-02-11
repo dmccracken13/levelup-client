@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react"
+import React, { useContext, useEffect, useHistory } from "react"
 import { GameContext } from "./GameProvider.js"
 
 export const GameList = (props) => {
@@ -9,6 +9,12 @@ export const GameList = (props) => {
     }, [])
 
     return (
+    <>
+        <button className="btn btn-2 btn-sep icon-create"
+            onClick={() => {
+                props.history.push({ pathname: "/games/new" })
+            }}
+        >Register New Game</button>
         <article className="games">
             {
                 games.map(game => {
@@ -20,5 +26,6 @@ export const GameList = (props) => {
                 })
             }
         </article>
+    </>
     )
 }
