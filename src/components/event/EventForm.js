@@ -5,10 +5,8 @@ import { useHistory } from 'react-router-dom'
 
 export const EventForm = (props) => {
     const history = useHistory()
-    const { getEvents, createEvent } = useContext(EventContext)
+    const { createEvent } = useContext(EventContext)
     const { games, getGames } = useContext(GameContext)
-
-    const [ game, setGame] = useState()
 
     const [currentEvent, setEvent] = useState({
         scheduledTime: "",
