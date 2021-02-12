@@ -40,7 +40,7 @@ export const GameProvider = (props) => {
     }
 
     return (
-        <GameContext.Provider value={{ games, getGames, gameTypes, createGame, getGameTypes }} >
+        <GameContext.Provider value={{ games, getGames, createGame, gameTypes, getGameTypes }} >
             { props.children }
         </GameContext.Provider>
     )

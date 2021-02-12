@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useHistory } from "react"
+import React, { useContext, useEffect } from "react"
 import { GameContext } from "./GameProvider.js"
 
 export const GameList = (props) => {
