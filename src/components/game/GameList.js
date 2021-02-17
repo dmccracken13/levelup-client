@@ -21,7 +21,11 @@ export const GameList = (props) => {
                     return <section key={`game--${game.id}`} className="game">
                         <div className="game__title">{game.title}</div>
                         <div className="game__players">{game.number_of_players} players needed</div>
-                        {/* <div className="game__skillLevel">Skill level is {game.skill_level}</div> */}
+                        <div className="game__description">Description: {game.description}</div>
+                        <div className="game__type">Game Type: {game.game_type.types}</div>
+                        <button className="btn btn-3"
+                                    onClick={e => props.history.push(`/games/${game.id}/edit`)}
+                                    >Edit</button>
                     </section>
                 })
             }
