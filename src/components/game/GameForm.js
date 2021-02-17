@@ -3,9 +3,9 @@ import { GameContext } from "./GameProvider.js"
 import { useHistory } from 'react-router-dom'
 
 
-export const GameForm = () => {
+export const GameForm = (props) => {
     const history = useHistory()
-    const { createGame, getGameTypes, gameTypes } = useContext(GameContext)
+    const { createGame, getGameTypes, gameTypes, editGame, getGame } = useContext(GameContext)
 
     /*
         Since the input fields are bound to the values of
@@ -27,6 +27,20 @@ export const GameForm = () => {
     useEffect(() => {
         getGameTypes()
     }, [])
+
+    useEffect(() => {
+        if ("gameId" in props.match.params) {
+            getGame(props.match.params.gameId).then(game => {
+                setCurrentGame({
+                    title: game.title,
+                    numberOfPlayers: game.number_of_players,
+                    description: game.description,
+                    gameTypeId: game.game_type_id,
+                    gamer: game.gamer_id
+                })   
+            })
+        }
+    }, [props.match.params.gameId])
 
     /*
         Update the `currentGame` state variable every time
@@ -101,25 +115,43 @@ export const GameForm = () => {
                     </select>
                 </div>
             </fieldset>
-
-            <button type="submit"
-                onClick={evt => {
-                    // Prevent form from being submitted
-                    evt.preventDefault()
-
-                    const game = {
-                        title: currentGame.title,
-                        numberOfPlayers: parseInt(currentGame.numberOfPlayers),
-                        gamer: currentGame.skillLevel,
-                        description: currentGame.description,
-                        gameTypeId: parseInt(currentGame.gameTypeId)
-                    }
-
-                    // Send POST request to your API
-                    createGame(game)
+            {
+                ("gameId" in props.match.params)
+                    ? <button 
+                    onClick={evt => {
+                        // Prevent form from being submitted
+                        evt.preventDefault()
+                        editGame({
+                            id: props.match.params.gameId,
+                            title: currentGame.title,
+                            numberOfPlayers: parseInt(currentGame.numberOfPlayers),
+                            gamer: currentGame.skillLevel,
+                            description: currentGame.description,
+                            gameTypeId: parseInt(currentGame.gameTypeId)
+                        })
                         .then(() => history.push("/games"))
-                }}
-                className="btn btn-primary">Create</button>
+                    }}
+                    className="btn btn-primary">Save</button>
+                    : <button type="submit"
+                    onClick={evt => {
+                        // Prevent form from being submitted
+                        evt.preventDefault()
+    
+                        const game = {
+                            title: currentGame.title,
+                            numberOfPlayers: parseInt(currentGame.numberOfPlayers),
+                            gamer: currentGame.skillLevel,
+                            description: currentGame.description,
+                            gameTypeId: parseInt(currentGame.gameTypeId)
+                        }
+    
+                        // Send POST request to your API
+                        createGame(game)
+                            .then(() => history.push("/games"))
+                    }}
+                    className="btn btn-primary">Create</button>
+            }
+            
         </form>
     )
 }
